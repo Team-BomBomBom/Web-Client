@@ -63,7 +63,7 @@ function BookStudyInfo(bookStudy: BookStudy) {
     <div className="flex items-center gap-2 mb-4">
       <BookIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
       <p className="text-gray-600 dark:text-gray-400">
-        {bookStudy.bookId} (TODO: 책제목으로 변경)
+        {bookStudy.bookInfo.title}
       </p>
     </div>
   );

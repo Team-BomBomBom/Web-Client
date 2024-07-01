@@ -6,8 +6,4 @@ export interface User {
   reliability: number;
   money: number;
   role: string;
-  reliabilityLimit: number;
-  penalty: number;
-  state: string;
-  studyType: string;
 }

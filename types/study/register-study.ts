@@ -136,6 +136,7 @@ export function getStudySchema(user: User) {
         isbn: z.number({
           required_error: '필수입니다.'
         })
+      })
     ],
     {
       errorMap: (issue, ctx) => {

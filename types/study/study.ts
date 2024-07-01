@@ -1,3 +1,6 @@
+import { BookResult } from '../book/book-result';
+import { User } from '../user/user';
+
 export interface Study {
   id: number;
   name: string;
@@ -6,6 +9,7 @@ export interface Study {
   capacity: number;
   weeks: number;
   startDate: string;
+  leader: User;
   reliabilityLimit: number;
   penalty: number;
   state: string;
@@ -35,7 +39,7 @@ export interface AlgorithmStudy extends Study {
 }
 
 export interface BookStudy extends Study {
-  bookId: number;
+  bookInfo: BookResult;
 }
 
 export interface StudyPage {
