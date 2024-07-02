@@ -6,7 +6,6 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table/table';
-import React from 'react';
 import { BookSearchTableProps } from '@/types/book/book-result';
 
 export default function BookSearchTable({
@@ -35,6 +34,7 @@ export default function BookSearchTable({
       <TableBody>
         {books.map(({ imageUrl, title, author, publisher, isbn }) => (
           <TableRow
+            key={isbn}
             onClick={() => handleTableRowClick(title, isbn)}
             className="cursor-pointer"
           >

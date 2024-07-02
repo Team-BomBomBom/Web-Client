@@ -1,7 +1,7 @@
 'use client';
 import StudyCreateModal from '@/components/study/study-create-modal';
 import StudyGrid from '@/components/study/study-grid';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 
 export default function StudyList() {
   const [trigger, setTrigger] = useState(0);
@@ -14,7 +14,9 @@ export default function StudyList() {
             showLatest={() => setTrigger(Date.now())}
           ></StudyCreateModal>
         </div>
-        <StudyGrid trigger={trigger} />
+        <Suspense>
+          <StudyGrid trigger={trigger} />
+        </Suspense>
       </div>
     </div>
   );
