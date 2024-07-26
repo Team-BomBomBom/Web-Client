@@ -34,12 +34,7 @@ export default function StudyPage() {
   }
   return (
     <div className="flex space-x-4 justify-center">
-      <StudyDashBoard
-        details={details}
-        studyId={Number(studyId)}
-        round={round}
-        setRound={setRound}
-      />
+      <StudyDashBoard details={details} round={round} setRound={setRound} />
       <StudyAbout details={details} users={round.users} />
     </div>
   );

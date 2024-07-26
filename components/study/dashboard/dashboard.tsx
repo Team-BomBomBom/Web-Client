@@ -14,64 +14,38 @@ import {
   TableRow
 } from '@/components/ui/table/table';
 import getRound from '@/lib/api/study/get-round';
-import { userState } from '@/recoil/userAtom';
-import {
-  AlgorithmProblemInfo,
-  AlgorithmRound,
-  StudyDetails
-} from '@/types/study/study-detail';
+import { AlgorithmRound, StudyDetails } from '@/types/study/study-detail';
 import { useParams } from 'next/navigation';
-import { useRecoilState } from 'recoil';
-import FeedbackDialog from '../feedback-dialog';
 
 export default function StudyDashBoard({
   details,
-  studyId,
   round,
   setRound
 }: {
   details: StudyDetails;
-  studyId: number;
   round: AlgorithmRound;
   setRound: (round: AlgorithmRound) => void;
 }) {
   return (
     <div className="mt-5 bg-background rounded-lg border p-6 w-full max-w-4xl h-full">
       <DashBoardHeader round={round} setRound={setRound} details={details} />
-      <DashBoardBody round={round} studyId={studyId} />
+      <DashBoardBody round={round} />
     </div>
   );
 }
 
-function DashBoardBody({
-  round,
-  studyId
-}: {
-  round: AlgorithmRound;
-  studyId: number;
-}) {
-  const [my, _] = useRecoilState(userState);
-  const myTasks = round.users[my!.id].tasks;
+function DashBoardBody({ round }: { round: AlgorithmRound }) {
   return (
     <div className="overflow-auto rounded-lg border">
       <Table>
         <TableHeader>
           <TableRow>
             <TableHead className="text-center">스터디원</TableHead>
-            {Object.entries(round.problems).map(
-              ([problemId, problem]: [string, AlgorithmProblemInfo], index) => (
-                <TableHead key={index} className="text-center">
-                  <p>{problem.title}</p>
-
-                  {myTasks[Number(problemId)] && (
-                    <FeedbackDialog
-                      problem={{ ...problem, problemId: Number(problemId) }}
-                      studyId={studyId}
-                    ></FeedbackDialog>
-                  )}
-                </TableHead>
-              )
-            )}
+            {Object.values(round.problems).map((problem, index) => (
+              <TableHead key={index} className="text-center">
+                {problem.title}
+              </TableHead>
+            ))}
           </TableRow>
         </TableHeader>
         <TableBody>

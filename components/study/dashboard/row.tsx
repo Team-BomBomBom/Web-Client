@@ -6,9 +6,7 @@ import {
   StudyMemberInfo
 } from '@/types/study/study-detail';
 
-import { userState } from '@/recoil/userAtom';
 import { useState } from 'react';
-import { useRecoilState } from 'recoil';
 
 export function Row({
   userId,
@@ -25,7 +23,6 @@ export function Row({
     // await refreshSolveTF(userId);
     setIsLoading(false);
   };
-  const [my, _] = useRecoilState(userState);
 
   return (
     <TableRow>
@@ -35,11 +32,11 @@ export function Row({
           <RefreshIcon className={isLoading ? 'animate-spin' : ''} />
         </Button>
       </TableCell>
-      {Object.entries(problems).map(([key, problem]) => (
+      {Object.entries(problems).map(([key, value]) => (
         <TableCell key={key} className="text-center">
           {user.tasks[Number(key)] ? (
             <div className="flex items-center justify-center">
-              <CheckIcon className="w-5 h-5" />
+              <CheckIcon className="w-5 h-5 text-primary" />
             </div>
           ) : (
             <div className="flex items-center justify-center">
