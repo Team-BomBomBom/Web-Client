@@ -4,26 +4,47 @@ import { Button } from '@/components/ui/button/button';
 import { Input } from '@/components/ui/input/input';
 import { Label } from '@/components/ui/label/label';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-
-import { login } from '@/lib/api/auth/login';
+import { PublicKeyInfo } from '@/types/encryption/public-key-info';
+import { getPublicKeyInfo } from '@/components/encryption/getPublicKeyInfo';
+import { handleEncryptedLogin } from '@/components/encryption/encryptLogin';
 
 export default function Page() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [publicKeyInfo, setPublicKeyInfo] = useState<PublicKeyInfo | null>(
+    null
+  );
+
+  useEffect(() => {
+    try {
+      getPublicKeyInfo(setPublicKeyInfo).then(() => {
+        if (publicKeyInfo != null && username != '' && password != '') {
+          handleEncryptedLogin({ username, password }, publicKeyInfo);
+        }
+      });
+    } catch (error) {
+      toast.error((error as Error).message);
+    }
+  }, []);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-
     try {
-      const response = await login(username, password);
-      const data = response.data;
-      localStorage.setItem('accessToken', data.access_token);
+      if (!publicKeyInfo) {
+        toast.error('로그인 진행 중입니다. 잠시만 기다려주세요.');
+        return;
+      }
+      const loginInfo = {
+        username: username,
+        password: password
+      };
+      const response = await handleEncryptedLogin(loginInfo, publicKeyInfo);
+      localStorage.setItem('accessToken', response.data.access_token);
       location.href = '/';
     } catch (error) {
-      console.log(error);
-      toast.error('아이디 혹은 비밀번호를 확인해주세요');
+      toast.error((error as Error).message);
     }
   };
 

@@ -1,16 +1,18 @@
-'use client';
-
 import { Button } from '@/components/ui/button/button';
 import { Input } from '@/components/ui/input/input';
 import { Textarea } from '@/components/ui/textarea/textarea';
-import { signup } from '@/lib/api/users/signup';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { FieldValues, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { z } from 'zod';
+import { handleEncryptedSignup } from '@/components/encryption/encryptionSignup';
+import { SignupFormProps } from '@/types/user/signup-form-props';
 
-export default function SignupForm() {
+export default function SignupForm({
+  publicKeyInfo,
+  handleChangeSignupInfo
+}: SignupFormProps) {
   const router = useRouter();
   const signupSchema = z
     .object({
@@ -39,10 +41,24 @@ export default function SignupForm() {
   });
 
   const onSubmit = async (data: FieldValues) => {
-    const response = await signup(data);
-    if (response.status === 200) {
-      toast.success('회원가입이 완료되었습니다.');
-      router.push('/login');
+    try {
+      handleChangeSignupInfo(
+        data.username,
+        data.password,
+        data.baekjoonId,
+        data.introduce
+      );
+      if (publicKeyInfo == null) {
+        toast.error('로그인 진행 중입니다. 잠시만 기다려주세요.');
+        return;
+      }
+      const response = await handleEncryptedSignup(data, publicKeyInfo);
+      if (response.status === 200) {
+        toast.success('회원가입이 완료되었습니다.');
+        router.push('/login');
+      }
+    } catch (error) {
+      toast.error((error as Error).message);
     }
   };
 
