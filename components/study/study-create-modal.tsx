@@ -129,27 +129,24 @@ export default function StudyCreateModal({
 
   const onSubmit = async (data: FieldValues) => {
     setOpen(false);
-
-    if (data.studyType == StudyType.ALGORITHM) {
-      registerAlgorithmStudy(data as RegisterAlgorithmStudyReq)
-        .then((response) => {
-          toast.success('알고리즘 스터디를 개설하였습니다');
-          showLatest();
-        })
-        .catch((error) => {
-          toast.error(error.response.data);
-          console.log(error.response.data);
-        });
-    } else if (data.studyType == StudyType.BOOK) {
-      createBookStudy(data as RegisterBookStudyReq)
-        .then((response) => {
-          toast.success('기술서적 스터디를 개설하였습니다');
-          showLatest();
-        })
-        .catch((error) => {
-          toast.error(error.response.data);
-          console.log(error.response.data);
-        });
+    try {
+      if (data.studyType == StudyType.ALGORITHM) {
+        const response = await registerAlgorithmStudy(
+          data as RegisterAlgorithmStudyReq
+        );
+        toast.success('알고리즘 스터디를 개설하였습니다');
+        showLatest();
+      } else if (data.studyType == StudyType.BOOK) {
+        const response = await createBookStudy(data as RegisterBookStudyReq);
+        toast.success('기술서적 스터디를 개설하였습니다');
+        showLatest();
+      }
+    } catch (error: any) {
+      if (error.response.data.errorCode === 40604) {
+        toast.error(
+          '보증금에 사용될 돈이 부족하여 스터디 개설에 실패했습니다.'
+        );
+      }
     }
   };
 
