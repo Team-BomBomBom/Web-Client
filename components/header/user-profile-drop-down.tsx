@@ -38,6 +38,13 @@ export default function UserProfileDropDown(user: User) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[200px]">
         <DropdownMenuItem>
+          <div className="w-full">
+            <Link href="/users/mypage" prefetch={false}>
+              마이페이지
+            </Link>
+          </div>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
           <div className="w-full" onClick={handleLogout}>
             <Link href="/" prefetch={false}>
               로그아웃
