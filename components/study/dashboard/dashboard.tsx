@@ -1,3 +1,4 @@
+import VideoUploadButton from '@/components/study/button/video-upload-button';
 import { Row } from '@/components/study/dashboard/row';
 import {
   Select,
@@ -25,9 +26,9 @@ import {
 } from '@/types/study/study-detail';
 import { useParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
+import { Button } from '../../ui/button/button';
 import FeedbackDialog from '../feedback-dialog';
 import { BookRow } from './book-row';
-import VideoUploadButton from '@/components/study/button/video-upload-button';
 
 export default function StudyDashBoard({
   details,
@@ -89,13 +90,23 @@ function AlgorithmDashBoardBody({
             {Object.entries(round.problems).map(
               ([problemId, problem]: [string, AlgorithmProblemInfo], index) => (
                 <TableHead key={index} className="text-center">
-                  <p>{problem.title}</p>
+                  <Button
+                    className={myTasks?.[Number(problemId)] ? 'mt-2' : ''}
+                    onClick={() => {
+                      window.open(problem.link, '_blank')!.focus();
+                    }}
+                  >
+                    <p>{problem.title}</p>
+                  </Button>
 
                   {myTasks?.[Number(problemId)] && (
-                    <FeedbackDialog
-                      problem={{ ...problem, problemId: Number(problemId) }}
-                      studyId={studyId}
-                    ></FeedbackDialog>
+                    <>
+                      <br></br>
+                      <FeedbackDialog
+                        problem={{ ...problem, problemId: Number(problemId) }}
+                        studyId={studyId}
+                      ></FeedbackDialog>
+                    </>
                   )}
                 </TableHead>
               )

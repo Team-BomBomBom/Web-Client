@@ -1,30 +1,30 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import {
   Avatar,
   AvatarFallback,
   AvatarImage
 } from '@/components/ui/avatar/avatar';
+import { Badge } from '@/components/ui/badge/badge';
 import { Button } from '@/components/ui/button/button';
 import { Card, CardContent } from '@/components/ui/card/card';
-import { Badge } from '@/components/ui/badge/badge';
+import { Progress } from '@/components/ui/progress/progress';
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger
 } from '@/components/ui/tabs/tabs';
-import { Progress } from '@/components/ui/progress/progress';
-import { Activity, Star, X } from 'lucide-react';
-import { cn } from '@/lib/utils';
 import getUsableMyCoupons from '@/lib/api/coupon/get-usable-my-coupons';
-import { MyCoupon } from '@/types/coupon/my-coupon';
 import getMyPointsHistories from '@/lib/api/points/get-my-points-histories';
-import applyCoupon from '@/types/coupon/use-coupon';
-import { User } from '@/types/user/user';
-import { PointHistory } from '@/types/user/point-history';
 import getMyProfile from '@/lib/api/users/my-profile';
+import { cn } from '@/lib/utils';
+import { MyCoupon } from '@/types/coupon/my-coupon';
+import applyCoupon from '@/types/coupon/use-coupon';
+import { PointHistory } from '@/types/user/point-history';
+import { User } from '@/types/user/user';
+import { Activity, Star, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 export default function ProfilePage() {
   const [myCoupons, setMyCoupons] = useState<MyCoupon[]>([]);
@@ -35,13 +35,14 @@ export default function ProfilePage() {
   const [myProfile, setMyProfile] = useState<User>();
   const [myPointsHistories, setMyPointsHistories] = useState<PointHistory[]>();
 
+  const fetchMyProfile = async () => {
+    const response = await getMyProfile();
+    return setMyProfile(response.data);
+  };
   useEffect(() => {
-    const fetchMyProfile = async () => {
-      const response = await getMyProfile();
-      return setMyProfile(response.data);
-    };
     fetchMyProfile();
     fetchPointsHistory();
+    fetchCoupons();
   }, []);
 
   // const handleEditProfile = (e: React.FormEvent<HTMLFormElement>) => {
@@ -74,6 +75,8 @@ export default function ProfilePage() {
           coupon.id === couponId ? { ...coupon, isUsed: true } : coupon
         )
       );
+      fetchMyProfile();
+      fetchPointsHistory();
     }
   };
 

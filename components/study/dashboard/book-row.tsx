@@ -26,6 +26,13 @@ export function BookRow({
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [my, _] = useRecoilState(userState);
+
+  const handler = (videoId: number) => {
+    return () => {
+      location.href =
+        '/video/' + studyId + '/' + assignment.id + '?id=' + videoId;
+    };
+  };
   return (
     <TableRow>
       <TableCell className="text-center">
@@ -44,8 +51,11 @@ export function BookRow({
       </TableCell>
       <TableCell className="text-center">
         <div className="flex items-center justify-center">
-          {user.video ? (
-            <Button className="px-3 py-1 hover:bg-gray-600 bg-gray-900 flex items-center justify-center">
+          {user.videoIds.length !== 0 ? (
+            <Button
+              className="px-3 py-1 hover:bg-gray-600 bg-gray-900 flex items-center justify-center"
+              onClick={handler(user.videoIds[0])}
+            >
               <PlayIcon className="w-5 h-5 stroke-white" />
             </Button>
           ) : (
@@ -56,7 +66,7 @@ export function BookRow({
 
       <TableCell className="text-center">
         <div className="flex items-center justify-center">
-          {user.quiz ? (
+          {user.problemIds.length !== 0 ? (
             <Button className="px-3 py-1 hover:bg-gray-600 bg-gray-900 flex items-center justify-center">
               <PuzzleIcon className="w-5 h-5 stroke-white" />
             </Button>
