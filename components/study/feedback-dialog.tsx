@@ -46,7 +46,7 @@ export default function FeedbackDialog({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="px-1 py-0 h-min">
+        <Button variant="outline" className="m-2 px-1 py-0 h-min">
           난이도 피드백
         </Button>
       </DialogTrigger>

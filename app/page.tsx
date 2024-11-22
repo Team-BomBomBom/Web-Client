@@ -10,9 +10,9 @@ export default function Home() {
   const [myData, setMyData] = useRecoilState(userState);
   return (
     <>
-      <div className="text-center">
+      {/* <div className="text-center">
         {myData?.username + '로 로그인된 상태입니다.'}
-      </div>
+      </div> */}
       <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-white to-gray-300">
         <div className="space-y-12">
           <div className="ml-12 text-5xl grid grid-rows-3 grid-cols-2 gap-x-12 gap-y-3">

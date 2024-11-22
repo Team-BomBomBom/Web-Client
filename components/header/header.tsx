@@ -3,7 +3,7 @@
 import HeaderNavMenu from '@/components/header/header-nav-menu';
 import UserProfileDropDown from '@/components/header/user-profile-drop-down';
 import { Button } from '@/components/ui/button/button';
-import { LectureIcon, StudyIcon } from '@/components/ui/icon/icon';
+import { CouponIcon, LectureIcon, StudyIcon } from '@/components/ui/icon/icon';
 import {
   NavigationMenu,
   NavigationMenuList
@@ -54,6 +54,11 @@ export default function Header() {
         <NavigationMenuList>
           <HeaderNavMenu title="스터디" href="/study" icon={<StudyIcon />} />
           <HeaderNavMenu title="강의" href="#" icon={<LectureIcon />} />
+          <HeaderNavMenu
+            title="쿠폰/혜택"
+            href="/coupon"
+            icon={<CouponIcon />}
+          />
         </NavigationMenuList>
       </NavigationMenu>
       <div className="ml-auto flex gap-2">

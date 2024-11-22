@@ -37,13 +37,18 @@ export default function UserProfileDropDown(user: User) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[200px]">
-        <DropdownMenuItem>
-          <div className="w-full" onClick={handleLogout}>
-            <Link href="/" prefetch={false}>
+        <Link href="/users/mypage" prefetch={false}>
+          <DropdownMenuItem>
+            <div className="w-full">마이페이지</div>
+          </DropdownMenuItem>
+        </Link>
+        <Link href="/" prefetch={false}>
+          <DropdownMenuItem>
+            <div className="w-full" onClick={handleLogout}>
               로그아웃
-            </Link>
-          </div>
-        </DropdownMenuItem>
+            </div>
+          </DropdownMenuItem>
+        </Link>
       </DropdownMenuContent>
     </DropdownMenu>
   );

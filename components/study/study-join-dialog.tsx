@@ -28,8 +28,9 @@ export default function JoinStudyDialog({
       toast.success('스터디에 참여하였습니다.');
       refresh();
     } catch (error: any) {
-      toast.error(error.response.data.error);
-      console.error(error);
+      if (error.response.data.errorCode === 40604) {
+        toast.error('보증금에 사용될 돈이 부족합니다.');
+      }
     }
   };
   const [open, setOpen] = useState(false);

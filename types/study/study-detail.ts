@@ -92,8 +92,8 @@ export interface AlgorithmMemberInfo extends StudyMemberInfo {
 
 export interface BookMemberInfo extends StudyMemberInfo {
   assignmentId: number;
-  video: VideoInfo;
-  quiz: QuizInfo;
+  videoIds: number[];
+  problemIds: number[];
 }
 
 export interface VideoInfo {

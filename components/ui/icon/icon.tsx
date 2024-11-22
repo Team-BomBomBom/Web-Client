@@ -479,3 +479,51 @@ export function TrashIcon(props: Record<string, string>) {
     </svg>
   );
 }
+
+export function CouponIcon({
+  width = 24,
+  height = 24,
+  color = 'currentColor'
+}) {
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M20 4H4C2.89543 4 2 4.89543 2 6V8C3.10457 8 4 8.89543 4 10C4 11.1046 3.10457 12 2 12V18C2 19.1046 2.89543 20 4 20H20C21.1046 20 22 19.1046 22 18V12C20.8954 12 20 11.1046 20 10C20 8.89543 20.8954 8 22 8V6C22 4.89543 21.1046 4 20 4Z"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M9 8L9 16"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeDasharray="2 2"
+      />
+      <path
+        d="M15 8L15 16"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeDasharray="2 2"
+      />
+      <path
+        d="M12 4L12 20"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeDasharray="0.5 2"
+      />
+    </svg>
+  );
+}

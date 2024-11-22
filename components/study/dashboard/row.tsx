@@ -44,6 +44,7 @@ export function Row({
     //   },
     //   []
     // );
+    setIsLoading(true);
     const problemIds = Object.keys(problems).map(Number);
     updateTaskStatus({ studyId, roundIdx, problemIds, userId });
   };
