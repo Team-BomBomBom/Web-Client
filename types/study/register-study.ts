@@ -86,15 +86,13 @@ const registerStudyShared = z.object({
 
 function getSharedRefine(user: User) {
   return (schema: z.ZodTypeAny) =>
-    schema
-      .refine(({ weeks, penalty }) => penalty * weeks <= user.money, {
-        message: '벌금 × 총 주차수는 보유한 잔액 이하여야 합니다.',
-        path: ['penalty']
-      })
-      .refine(({ reliabilityLimit }) => reliabilityLimit <= user.reliability, {
+    schema.refine(
+      ({ reliabilityLimit }) => reliabilityLimit <= user.reliability,
+      {
         message: '본인의 신뢰도 이하여야 합니다.',
         path: ['reliabilityLimit']
-      });
+      }
+    );
 }
 
 export function getStudySchema(user: User) {

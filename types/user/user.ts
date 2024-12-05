@@ -4,6 +4,6 @@ export interface User {
   introduce: string;
   image: number;
   reliability: number;
-  money: number;
+  points: number;
   role: string;
 }
